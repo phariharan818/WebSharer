@@ -3,7 +3,8 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
-import usersRouter from './routes/users.js';
+import apiv1Router from './routes/api/v1/api_v1.js'
+import urlRouter from './routes/api/v1/api_v1.js'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -19,6 +20,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/users', usersRouter);
+app.use('/api/v1/', apiv1Router)
+app.use('/urls/preview', urlRouter)
+
+app.listen(3000, () => {
+    console.log("Example app listening at http://localhost:3000")
+})
 
 export default app;
