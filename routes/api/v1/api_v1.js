@@ -20,7 +20,7 @@ router.get('/urls/preview', async (req, res) => {
     let html = parser.parse(pageContent)
     // console.log("Here is the html " + html)
 
-    let metaTags = html.querySelectorAll('meta[property^="og:"]')
+    let metaTags = html.querySelectorAll("meta")
     // console.log("Here are the meta tags:" + metaTags)
 
 
@@ -28,6 +28,7 @@ router.get('/urls/preview', async (req, res) => {
     let ogTitle = ''
     let ogImage = ''
     let ogDescription = ''
+    let ogAlt = ''
 
 
     // to find this information, we want to extract the values and put 
@@ -44,6 +45,8 @@ router.get('/urls/preview', async (req, res) => {
         ogImage = content || ''
       } else if (property === 'og:description') {
         ogDescription = content || ''
+      } else if (property === 'og:image:alt') {
+        ogAlt = content || ''
       }
     })
 
@@ -60,6 +63,10 @@ router.get('/urls/preview', async (req, res) => {
           ogTitle = url;
       }
     }
+
+    if (!ogAlt) {
+      ogAlt = 'No image Description Found'
+    }
   
 
     // console.log("Here is a url tag " + ogUrl)
@@ -68,14 +75,16 @@ router.get('/urls/preview', async (req, res) => {
     // console.log("Here is a description tag " + ogDescription)
 
     const htmlResponse = `
-      <div style="max-width: 300px; border: solid 1px; padding: 3px; text-align: center;"> 
-        <a href="${ogUrl}">
-          <p><strong>${ogTitle}</strong></p>
-          <img src="${ogImage}" style="max-height: 200px; max-width: 270px;">
+      <div style="max-width: 800px; border: solid 2px #333; text-align: center; background-color: #f8f8f8; border-radius: 10px;">
+        <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
+          <p style="font-size: 28px; margin-bottom: 5px;"><strong>${ogTitle}</strong></p>
+          <img src="${ogImage}" style="max-height: 300px; max-width: 100%; border-radius: 8px;">
         </a>
-        <p>${ogDescription}</p>
+        <p style="font-size: 24px; margin-bottom: 18px; margin-top: 15px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
+        <p style="font-size: 18px; margin-top: 20px;">${ogDescription}</p>
       </div>
     `
+
 
     res.type("html")
     res.send(htmlResponse);
