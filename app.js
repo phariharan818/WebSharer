@@ -4,7 +4,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 
 import apiv1Router from './routes/api/v1/api_v1.js'
-import urlRouter from './routes/api/v1/api_v1.js'
+import apiv2Router from './routes/api/v2/apiv2.js'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -21,7 +21,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/v1/', apiv1Router)
-app.use('/urls/preview', urlRouter)
+app.use('/api/v2/', apiv2Router)
 
 app.listen(3000, () => {
     console.log("Example app listening at http://localhost:3000")
