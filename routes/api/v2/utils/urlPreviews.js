@@ -6,17 +6,17 @@ async function getURLPreview(url) {
   // TODO: Copy from your code for making url previews in A2 to make this 
   // a function that takes a url and returns an html string with a preview of that html
   try {
+    if (!url || !url.startsWith("http")) {
+        throw new Error('Invalid URL');
+    }
     let response = await fetch(url)
     if (!response) {
       console.log(error)
     }
+
     let pageContent = await response.text();
-
     let html = parser.parse(pageContent)
-    // console.log("Here is the html " + html)
-
     let metaTags = html.querySelectorAll("meta")
-    // console.log("Here are the meta tags:" + metaTags)
 
 
     let ogUrl = ''
@@ -79,13 +79,6 @@ async function getURLPreview(url) {
       ogDetailedDescription = ''
     }
   
-
-    // console.log("Here is a url tag " + ogUrl)
-    // console.log("Here is a title tag " + ogTitle)
-    // console.log("Here is an image tag " + ogImage)
-    // console.log("Here is a description tag " + ogDescription)
-    // console.log("Here is a detailed description " + ogDetailedDescription)
-
     const htmlResponse = `
       <div style="max-width: 800px; border: solid 2px #333; text-align: center; background-color: #f8f8f8; border-radius: 10px;">
         <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
@@ -97,14 +90,11 @@ async function getURLPreview(url) {
         <p style="font-size: 18px; margin-top: 20px;">${ogDetailedDescription}</p>
       </div>
     `
-
-
-    res.type("html")
-    res.send(htmlResponse);
+    return htmlResponse
 
   } catch (error) {
       console.log(error);
-      res.status(500).send("Error: " + error)
+    //   res.status(500).send("Error: " + error)
   }
 }
 
