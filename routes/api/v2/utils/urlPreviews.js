@@ -6,8 +6,8 @@ async function getURLPreview(url) {
   // TODO: Copy from your code for making url previews in A2 to make this 
   // a function that takes a url and returns an html string with a preview of that html
   try {
-    if (!url || !url.startsWith("http")) {
-        throw new Error('Invalid URL');
+    if (!url) {
+        console.log(error)
     }
     let response = await fetch(url)
     if (!response) {
@@ -80,12 +80,12 @@ async function getURLPreview(url) {
     }
   
     const htmlResponse = `
-      <div style="max-width: 800px; border: solid 2px #333; text-align: center; background-color: #f8f8f8; border-radius: 10px;">
+      <div style="max-width: 300px; border: solid 2px #333; text-align: center; background-color: #f8f8f8; border-radius: 10px;">
         <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
           <p style="font-size: 28px; margin-bottom: 5px;"><strong>${ogTitle}</strong></p>
           <img src="${ogImage}" style="max-height: 300px; max-width: 100%; border-radius: 8px;">
         </a>
-        <p style="font-size: 24px; margin-bottom: 18px; margin-top: 15px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
+        <p style="font-size: 18px; margin-bottom: 18px; margin-top: 15px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
         <p style="font-size: 18px; margin-top: 20px;">${ogDescription}</p>
         <p style="font-size: 18px; margin-top: 20px;">${ogDetailedDescription}</p>
       </div>

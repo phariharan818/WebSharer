@@ -18,7 +18,7 @@ const postSchema = new mongoose.Schema({
     url: String,
     description: String,
     created_date: { type: Date, default: Date.now },
-})
+});
 
 models.Post = mongoose.model('Post', postSchema)
 console.log("mongoose models created")
