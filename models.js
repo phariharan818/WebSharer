@@ -16,6 +16,7 @@ console.log("successfully connected to mongodb")
 // created_date (a date)
 const postSchema = new mongoose.Schema({
     url: String,
+    username: String,
     description: String,
     created_date: { type: Date, default: Date.now },
 });

@@ -80,15 +80,15 @@ async function getURLPreview(url) {
     }
   
     const htmlResponse = `
-      <div style="max-width: 300px; border: solid 2px #333; text-align: center; background-color: #f8f8f8; border-radius: 10px;">
-        <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
-          <p style="font-size: 28px; margin-bottom: 5px;"><strong>${ogTitle}</strong></p>
-          <img src="${ogImage}" style="max-height: 300px; max-width: 100%; border-radius: 8px;">
-        </a>
-        <p style="font-size: 18px; margin-bottom: 18px; margin-top: 15px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
-        <p style="font-size: 18px; margin-top: 20px;">${ogDescription}</p>
-        <p style="font-size: 18px; margin-top: 20px;">${ogDetailedDescription}</p>
-      </div>
+        <div style="max-width: 300px; padding: 3px; text-align: center;"> 
+            <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
+                <p style="font-size: 18px; margin-bottom: 5px;"><strong>${ogTitle}</strong></p>
+                <img src="${ogImage}" style="max-height: 200px; max-width: 270px; border-radius: 8px;">
+            </a>
+            <p style="font-size: 14px; margin-top: 5px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
+            <p style="font-size: 14px;">${ogDescription}</p>
+            <p style="font-size: 14px;">${ogDetailedDescription}</p>
+        </div>
     `
     return htmlResponse
 

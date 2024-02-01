@@ -10,6 +10,7 @@ router.post('/', async function(req, res, next) {
     try {
         let newPost = new req.models.Post({
             url: req.body.url,
+            username: req.body.username,
             description: req.body.description,
             created_date: req.body.created_date
         })        
@@ -30,7 +31,7 @@ router.get('/', async function(req, res, next) {
                     let htmlPreview = await getURLPreview(post.url)
 
                     // information about post
-                    return { "url": post.url, "description": post.description, "htmlPreview": htmlPreview }
+                    return { "url": post.url, "username": post.username, "description": post.description, "htmlPreview": htmlPreview }
                 } catch(error) {
                     res.status(500).send("Error: " + error)
                     return { "description": post.description, "htmlPreview": "error: " + error.message };
