@@ -1,6 +1,15 @@
 import fetch from 'node-fetch';
-
+import * as cheerio from 'cheerio'
 import parser from 'node-html-parser';
+
+const escapeHTML = str => String(str).replace(/[&<>'"]/g, 
+  tag => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      "'": '&#39;',
+      '"': '&quot;'
+    }[tag]));
 
 async function getURLPreview(url) {
   // TODO: Copy from your code for making url previews in A2 to make this 
@@ -90,11 +99,15 @@ async function getURLPreview(url) {
             <p style="font-size: 14px;">${ogDetailedDescription}</p>
         </div>
     `
-    return htmlResponse
+
+    
+    let parsedHTML = cheerio.load(escapeHTML)
+    parsedHTML('').text(htmlResponse)
+
+    return parsedHTML.html()
 
   } catch (error) {
       console.log(error);
-    //   res.status(500).send("Error: " + error)
   }
 }
 
