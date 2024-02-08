@@ -1,5 +1,4 @@
 import fetch from 'node-fetch';
-import * as cheerio from 'cheerio'
 import parser, { parse } from 'node-html-parser';
 
 const escapeHTML = str => String(str).replace(/[&<>'"]/g, 
