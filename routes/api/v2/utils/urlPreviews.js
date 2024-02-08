@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio'
-import parser from 'node-html-parser';
+import parser, { parse } from 'node-html-parser';
 
 const escapeHTML = str => String(str).replace(/[&<>'"]/g, 
   tag => ({
@@ -90,21 +90,18 @@ async function getURLPreview(url) {
   
     const htmlResponse = `
         <div style="max-width: 300px; padding: 3px; text-align: center;"> 
-            <a href="${ogUrl}" style="text-decoration: none; color: #800080;" target="_blank">
-                <p style="font-size: 18px; margin-bottom: 5px;"><strong>${ogTitle}</strong></p>
-                <img src="${ogImage}" style="max-height: 200px; max-width: 270px; border-radius: 8px;">
+            <a href="${escapeHTML(ogUrl)}" style="text-decoration: none; color: #800080;" target="_blank">
+                <p style="font-size: 18px; margin-bottom: 5px;"><strong>${escapeHTML(ogTitle)}</strong></p>
+                <img src="${escapeHTML(ogImage)}" style="max-height: 200px; max-width: 270px; border-radius: 8px;">
             </a>
-            <p style="font-size: 14px; margin-top: 5px;"><strong>Image Alt Text:</strong> ${ogAlt}</p>
-            <p style="font-size: 14px;">${ogDescription}</p>
-            <p style="font-size: 14px;">${ogDetailedDescription}</p>
+            <p style="font-size: 14px; margin-top: 5px;"><strong>Image Alt Text:</strong> ${escapeHTML(ogAlt)}</p>
+            <p style="font-size: 14px;">${escapeHTML(ogDescription)}</p>
+            <p style="font-size: 14px;">${escapeHTML(ogDetailedDescription)}</p>
         </div>
     `
 
-    
-    let parsedHTML = cheerio.load(escapeHTML)
-    parsedHTML('').text(htmlResponse)
+    return htmlResponse
 
-    return parsedHTML.html()
 
   } catch (error) {
       console.log(error);
