@@ -22,14 +22,20 @@ router.post('/', async function(req, res, next) {
             res.send(401).json({"status": "error", "error": error})
         }
     } else {
-        res.status(401).json({"status": "loggedout"})
+        res.status(401).json({"status": "loggedout", "error": "not logged in"})
     }
     
   });
 
 router.get('/', async function(req, res, next) {
+    let username = req.query.username
     try {
         let allPosts = await req.models.Post.find()
+        if (username) {
+            allPosts = await req.models.Post.find({"username": username});
+        } else {
+            allPosts = await req.models.Post.find();
+        }
         let postData = await Promise.all(
             allPosts.map(async post => { 
                 try {
@@ -50,15 +56,6 @@ router.get('/', async function(req, res, next) {
         res.status(500).send("Error: " + error)
     }
 })
-
-// router.get('/username', async (req, res) => {
-//     return all posts made by the user
-//     if (req.query.username.exists)
-//         res.JSON(POSTS)
-//     } else {
-//         res.json(other posts)
-//     }   
-// })
 
 
 export default router;
