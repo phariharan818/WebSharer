@@ -12,8 +12,8 @@ const authConfig = {
     auth: {
         clientId: "415cde75-c8b7-4356-9c31-df9562579604",
         authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
-        clientSecret: "0aba862a-6a5f-4841-9289-c403e125cfc9",
-        redirectUri: "/redirect", // "localhost:3000/redirect" or "examplesite.me/redirect"
+        clientSecret: "W.G8Q~fm~vgaFnKACA1KCMlCRxZxeWpgKBwGRcS.",
+        redirectUri: "https://a4-websharer.express-demo.me/redirect" //"https://websharer-a4-phariha.azurewebsites.net/redirect", //"localhost:3000/redirect" or "examplesite.me/redirect"
     },
     system: {
         loggerOptions: {
