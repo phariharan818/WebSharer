@@ -43,7 +43,7 @@ router.get('/', async function(req, res, next) {
                     let htmlPreview = await getURLPreview(post.url)
 
                     // information about post
-                    return { "url": post.url, "username": post.username, "description": post.description, "htmlPreview": htmlPreview }
+                    return { "username": post.username, "description": post.description, "htmlPreview": htmlPreview }
                 } catch(error) {
                     // res.status(500).send("Error: " + error)
                     return { "description": post.description, "htmlPreview": "error: " + error.message };
