@@ -13,7 +13,7 @@ const authConfig = {
         clientId: "415cde75-c8b7-4356-9c31-df9562579604",
         authority: "https://login.microsoftonline.com/f6b6dd5b-f02f-441a-99a0-162ac5060bd2",
         clientSecret: "W.G8Q~fm~vgaFnKACA1KCMlCRxZxeWpgKBwGRcS.",
-        redirectUri: "https://a4-websharer.express-demo.me/redirect" //"https://websharer-a4-phariha.azurewebsites.net/redirect", //"localhost:3000/redirect" or "examplesite.me/redirect"
+        redirectUri: "/redirect" //"https://websharer-a4-phariha.azurewebsites.net/redirect", //"localhost:3000/redirect" or "examplesite.me/redirect"
     },
     system: {
         loggerOptions: {
@@ -80,33 +80,6 @@ app.get( '/signout', (req, res, next) => {
 	})
     (req, res, next);
 });
-
-// use this by going to urls like: 
-// http://localhost:3000/fakelogin?name=anotheruser
-// app.get('/fakelogin', (req, res) => {
-//     let newName = req.query.name;
-//     let session=req.session;
-//     session.isAuthenticated = true;
-//     if (!session.account) {
-//         session.account = {};
-//     }
-//     session.account.name = newName;
-//     session.account.username = newName;
-//     console.log("set session");
-//     res.redirect("/api/v3/getIdentity");
-// });
-
-// // use this by going to a url like: 
-// // http://localhost:3000/fakelogout
-// app.get('/fakelogout', (req, res) => {
-//     let newName = req.query.name;
-//     let session=req.session;
-//     session.isAuthenticated = false;
-//     session.account = {};
-//     console.log("you have fake logged out");
-//     res.redirect("/api/v3/getIdentity");
-// });
-
 
 app.use(authProvider.interactionErrorHandler());
 
