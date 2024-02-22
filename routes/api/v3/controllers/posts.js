@@ -19,7 +19,7 @@ router.get('/', async function(req, res, next) {
                     // await call
                     let htmlPreview = await getURLPreview(post.url)
 
-                    // information about post
+                    // information about post, added info including _id field
                     return {"id": post._id, "username": post.username, "url": post.url, "description": post.description, "likes": post.likes, "htmlPreview": htmlPreview }
                 } catch(error) {
                     return {"description": post.description, "htmlPreview": "error: " + error.message};
