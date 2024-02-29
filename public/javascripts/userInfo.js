@@ -6,6 +6,27 @@ async function init(){
 async function saveUserInfo(){
     //TODO: do an ajax call to save whatever info you want about the user from the user table
     //see postComment() in the index.js file as an example of how to do this
+    document.getElementById("user-status").innerText = "sending data...";
+    newInfo = document.getElementById('user-info-input').value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const username = urlParams.get('user');
+    try {
+        await fetchJSON(`api/${apiVersion}/userInfo`, {
+            method: "POST",
+            body: {
+                username: username,
+                favoriteFood: newInfo
+            }
+        })
+    } catch (error) {
+        document.getElementById("user-status").innerText = "error"
+        throw(error)
+    }
+    document.getElementById('user-info-input').value = ""
+    document.getElementById('user-status').innerText = ""
+    document.getElementById("user_favorite_food").innerHTML = ""
+
+    loadUserInfo()
 }
 
 async function loadUserInfo(){
@@ -21,7 +42,16 @@ async function loadUserInfo(){
     }
     
     //TODO: do an ajax call to load whatever info you want about the user from the user table
+    let infoJSON = await fetchJSON(`api/${apiVersion}/userInfo?username=${username}`)
+    infoDiv = document.getElementById("user_info_div")
 
+    let foodDiv = document.createElement("div")
+    foodDiv.id = "user_favorite_food"
+    foodDiv.innerHTML = `
+        <p>${escapeHTML(infoJSON.favoriteFood)}</p>
+        <p>Last Updated: ${escapeHTML(infoJSON.created_date)}</p>`
+
+    infoDiv.appendChild(foodDiv)
     loadUserInfoPosts(username)
 }
 
